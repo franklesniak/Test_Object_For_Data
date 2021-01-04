@@ -1,6 +1,5 @@
 Function TestObjectForData(ByVal objToCheck)
-    'region TestObjectForDataFunctionMetadata
-    '##########################################################################################
+    'region TestObjectForDataFunctionMetadata ####################################################
     ' Checks an object or variable to see if it "has data".
     ' If any of the following are true, then objToCheck is regarded as NOT having data:
     '   VarType(objToCheck) = 0
@@ -12,13 +11,11 @@ Function TestObjectForData(ByVal objToCheck)
     '   IsArray(objToCheck) = True And UBound(objToCheck) throws an error
     '   IsArray(objToCheck) = True And UBound(objToCheck) < 0
     ' In any of these cases, the function returns False. Otherwise, it returns True.
+    '
+    ' Version: 1.1.20210104.1
+    'endregion TestObjectForDataFunctionMetadata ####################################################
 
-    ' Version: 1.1.20210104.0
-    '##########################################################################################
-    'endregion TestObjectForDataFunctionMetadata
-
-    'region License
-    '##########################################################################################
+    'region License ####################################################
     ' Copyright 2021 Frank Lesniak
     '
     ' Permission is hereby granted, free of charge, to any person obtaining a copy of this
@@ -36,15 +33,21 @@ Function TestObjectForData(ByVal objToCheck)
     ' FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
     ' OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
     ' DEALINGS IN THE SOFTWARE.
-    '##########################################################################################
-    'endregion License
+    'endregion License ####################################################
 
-    'region DownloadLocationNotice
-    '##########################################################################################
+    'region DownloadLocationNotice ####################################################
     ' The most up-to-date version of this script can be found on the author's GitHub repository
     ' at https://github.com/franklesniak/Test_Object_For_Data
-    '##########################################################################################
-    'endregion DownloadLocationNotice
+    'endregion DownloadLocationNotice ####################################################
+
+    'region Acknowledgements ####################################################
+    ' Thanks to Scott Dexter for writing the article "Empty Nothing And Null How Do You Feel
+    ' Today", which inspired me to create this function. https://evolt.org/node/346
+    '
+    ' Thanks also to "RhinoScript" for the article "Testing for Empty Arrays" for providing
+    ' guidance for how to test for the empty array condition in VBScript.
+    ' https://wiki.mcneel.com/developer/scriptsamples/emptyarray
+    'endregion Acknowledgements ####################################################
 
     Dim boolTestResult
     Dim boolFunctionReturn
