@@ -3,20 +3,23 @@ Function TestObjectForData(ByVal objToCheck)
     '##########################################################################################
     ' Checks an object or variable to see if it "has data".
     ' If any of the following are true, then objToCheck is regarded as NOT having data:
-    '   VarType(objToCheck) = 10
+    '   VarType(objToCheck) = 0
+    '   VarType(objToCheck) = 1
     '   objToCheck Is Nothing
     '   IsEmpty(objToCheck)
     '   IsNull(objToCheck)
     '   objToCheck = ""
+    '   IsArray(objToCheck) = True And UBound(objToCheck) throws an error
+    '   IsArray(objToCheck) = True And UBound(objToCheck) < 0
     ' In any of these cases, the function returns False. Otherwise, it returns True.
 
-    ' Version: 1.0.20201222.0
+    ' Version: 1.1.20210104.0
     '##########################################################################################
     'endregion TestObjectForDataFunctionMetadata
 
     'region License
     '##########################################################################################
-    ' Copyright 2020 Frank Lesniak
+    ' Copyright 2021 Frank Lesniak
     '
     ' Permission is hereby granted, free of charge, to any person obtaining a copy of this
     ' software and associated documentation files (the "Software"), to deal in the Software
@@ -45,21 +48,38 @@ Function TestObjectForData(ByVal objToCheck)
 
     Dim boolTestResult
     Dim boolFunctionReturn
+    Dim intArrayUBound
 
     boolFunctionReturn = True
 
-    'Check VarType(objToCheck) = 10
+    'Check VarType(objToCheck) = 0
     On Error Resume Next
-    boolTestResult = (VarType(objToCheck) = 10)
+    boolTestResult = (VarType(objToCheck) = 0)
     If Err Then
         'Error occurred
         Err.Clear
-        On Error GoTo 0
+        On Error Goto 0
     Else
         'No Error
-        On Error GoTo 0
+        On Error Goto 0
         If boolTestResult = True Then
-            'No data
+            'vbEmpty
+            boolFunctionReturn = False
+        End If
+    End If
+
+    'Check VarType(objToCheck) = 1
+    On Error Resume Next
+    boolTestResult = (VarType(objToCheck) = 1)
+    If Err Then
+        'Error occurred
+        Err.Clear
+        On Error Goto 0
+    Else
+        'No Error
+        On Error Goto 0
+        If boolTestResult = True Then
+            'vbNull
             boolFunctionReturn = False
         End If
     End If
@@ -71,10 +91,10 @@ Function TestObjectForData(ByVal objToCheck)
         If Err Then
             'Error occurred
             Err.Clear
-            On Error GoTo 0
+            On Error Goto 0
         Else
             'No Error
-            On Error GoTo 0
+            On Error Goto 0
             If boolTestResult = True Then
                 'No data
                 boolFunctionReturn = False
@@ -89,10 +109,10 @@ Function TestObjectForData(ByVal objToCheck)
         If Err Then
             'Error occurred
             Err.Clear
-            On Error GoTo 0
+            On Error Goto 0
         Else
             'No Error
-            On Error GoTo 0
+            On Error Goto 0
             If boolTestResult = True Then
                 'No data
                 boolFunctionReturn = False
@@ -107,10 +127,10 @@ Function TestObjectForData(ByVal objToCheck)
         If Err Then
             'Error occurred
             Err.Clear
-            On Error GoTo 0
+            On Error Goto 0
         Else
             'No Error
-            On Error GoTo 0
+            On Error Goto 0
             If boolTestResult = True Then
                 'No data
                 boolFunctionReturn = False
@@ -125,12 +145,42 @@ Function TestObjectForData(ByVal objToCheck)
         If Err Then
             'Error occurred
             Err.Clear
-            On Error GoTo 0
+            On Error Goto 0
         Else
             'No Error
-            On Error GoTo 0
+            On Error Goto 0
             If boolTestResult = True Then
                 'No data
+                boolFunctionReturn = False
+            End If
+        End If
+    End If
+
+    If boolFunctionReturn = True Then
+        On Error Resume Next
+        boolTestResult = IsArray(objToCheck)
+        If Err Then
+            'Error occurred
+            Err.Clear
+            On Error Goto 0
+            boolTestResult = False
+        Else
+            'No Error
+            On Error Goto 0
+        End If
+        If boolTestResult = True Then
+            ' objToCheck is an array
+            On Error Resume Next
+            intArrayUBound = UBound(objToCheck)
+            If Err Then
+                'Undimensioned array
+                Err.Clear
+                On Error Goto 0
+                intArrayUBound = -1
+            Else
+                On Error Goto 0
+            End If
+            If intArrayUBound < 0 Then
                 boolFunctionReturn = False
             End If
         End If
