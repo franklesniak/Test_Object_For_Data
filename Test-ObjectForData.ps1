@@ -267,7 +267,16 @@ function Test-ObjectForData {
     #   The function returns $true if data is found as per the introductory paragraph; $false
     #       otherwise.
     #
-    # Version: 1.0.20200105.0
+    #   Example:
+    #   $result = Do-Something
+    #   $boolDataPresent = Test-ObjectForData ([ref]$result)
+    #   if ($boolDataPresent) {
+    #       # $result contains data
+    #   } else {
+    #       # $result did not contain any data
+    #   }
+    #
+    # Version: 1.0.20200105.1
     ###########################################################################################
     #endregion TestObjectForDataFunctionMetadata
 
