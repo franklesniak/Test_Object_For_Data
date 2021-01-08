@@ -1,5 +1,5 @@
 Function TestObjectForData(ByVal objToCheck)
-    'region TestObjectForDataFunctionMetadata ####################################################
+    'region FunctionMetadata ####################################################
     ' Checks an object or variable to see if it "has data".
     ' If any of the following are true, then objToCheck is regarded as NOT having data:
     '   VarType(objToCheck) = 0
@@ -7,13 +7,13 @@ Function TestObjectForData(ByVal objToCheck)
     '   objToCheck Is Nothing
     '   IsEmpty(objToCheck)
     '   IsNull(objToCheck)
-    '   objToCheck = ""
+    '   objToCheck = vbNullString (or "")
     '   IsArray(objToCheck) = True And UBound(objToCheck) throws an error
     '   IsArray(objToCheck) = True And UBound(objToCheck) < 0
     ' In any of these cases, the function returns False. Otherwise, it returns True.
     '
-    ' Version: 1.1.20210104.1
-    'endregion TestObjectForDataFunctionMetadata ####################################################
+    ' Version: 1.1.20210107.0
+    'endregion FunctionMetadata ####################################################
 
     'region License ####################################################
     ' Copyright 2021 Frank Lesniak
@@ -47,6 +47,9 @@ Function TestObjectForData(ByVal objToCheck)
     ' Thanks also to "RhinoScript" for the article "Testing for Empty Arrays" for providing
     ' guidance for how to test for the empty array condition in VBScript.
     ' https://wiki.mcneel.com/developer/scriptsamples/emptyarray
+    '
+    ' Thanks also "iamresearcher" who posted this and inspired the test case for vbNullString:
+    ' https://www.vbforums.com/showthread.php?684799-The-Differences-among-Empty-Nothing-vbNull-vbNullChar-vbNullString-and-the-Zero-L
     'endregion Acknowledgements ####################################################
 
     Dim boolTestResult
@@ -140,11 +143,11 @@ Function TestObjectForData(ByVal objToCheck)
             End If
         End If
     End If
-
-    'Check objToCheck = ""
+    
+    'Check objToCheck = vbNullString
     If boolFunctionReturn = True Then
         On Error Resume Next
-        boolTestResult = (objToCheck = "")
+        boolTestResult = (objToCheck = vbNullString)
         If Err Then
             'Error occurred
             Err.Clear
