@@ -12,7 +12,7 @@ Function TestObjectForData(ByVal objToCheck)
     '   IsArray(objToCheck) = True And UBound(objToCheck) < 0
     ' In any of these cases, the function returns False. Otherwise, it returns True.
     '
-    ' Version: 1.1.20210107.0
+    ' Version: 1.1.20210115.0
     'endregion FunctionMetadata ####################################################
 
     'region License ####################################################
@@ -55,6 +55,8 @@ Function TestObjectForData(ByVal objToCheck)
     Dim boolTestResult
     Dim boolFunctionReturn
     Dim intArrayUBound
+
+    Err.Clear
 
     boolFunctionReturn = True
 
